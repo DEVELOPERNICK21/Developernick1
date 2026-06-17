@@ -1,10 +1,13 @@
 'use client'
 
 import Image from 'next/image'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import FadeIn from './FadeIn'
 import ContactButton from './ContactButton'
 import Magnet from './Magnet'
-import { AVATAR_URL } from '@/lib/constants'
+import ScrollModel from './ScrollModel'
+import { AVATAR_URL, HERO_FLOATING_MODELS } from '@/lib/constants'
 
 const NAV_LINKS = [
   { label: 'Work', href: '#projects' },
@@ -14,10 +17,29 @@ const NAV_LINKS = [
 ]
 
 export default function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const avatarY = useTransform(scrollYProgress, [0, 1], [0, -180])
+  const avatarScale = useTransform(scrollYProgress, [0, 1], [1, 0.82])
+  const avatarRotate = useTransform(scrollYProgress, [0, 1], [0, -8])
+  const headingY = useTransform(scrollYProgress, [0, 1], [0, -120])
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.15])
+
   return (
-    <section className="relative flex h-screen flex-col overflow-x-clip bg-brand-bg">
+    <section
+      ref={sectionRef}
+      className="relative flex h-screen flex-col overflow-x-clip bg-brand-bg"
+    >
+      {HERO_FLOATING_MODELS.map(model => (
+        <ScrollModel key={model.alt} {...model} containerRef={sectionRef} />
+      ))}
+
       <FadeIn delay={0} y={-20}>
-        <nav className="flex items-center justify-between px-6 pt-6 md:px-10 md:pt-8">
+        <nav className="relative z-30 flex items-center justify-between px-6 pt-6 md:px-10 md:pt-8">
           {NAV_LINKS.map(link => (
             <a
               key={link.label}
@@ -30,13 +52,13 @@ export default function HeroSection() {
         </nav>
       </FadeIn>
 
-      <div className="overflow-hidden">
+      <motion.div className="overflow-hidden" style={{ y: headingY, opacity: headingOpacity }}>
         <FadeIn delay={0.15} y={40}>
           <h1 className="hero-heading mt-6 w-full whitespace-nowrap text-[12vw] font-black uppercase leading-none tracking-tight sm:mt-4 sm:text-[14vw] md:-mt-5 md:text-[15vw] lg:text-[16vw]">
             Hi, i&apos;m nick
           </h1>
         </FadeIn>
-      </div>
+      </motion.div>
 
       <div className="relative z-20 mt-auto flex items-end justify-between px-6 pb-7 sm:pb-8 md:px-10 md:pb-10">
         <FadeIn delay={0.35} y={20}>
@@ -56,21 +78,23 @@ export default function HeroSection() {
       <FadeIn
         delay={0.6}
         y={30}
-        className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0"
+        className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 sm:top-auto sm:bottom-0 sm:translate-y-0"
       >
-        <div className="pointer-events-auto">
+        <motion.div
+          className="pointer-events-auto"
+          style={{ y: avatarY, scale: avatarScale, rotate: avatarRotate, willChange: 'transform' }}
+        >
           <Magnet padding={150} strength={3}>
             <Image
               src={AVATAR_URL}
               alt="Nick Kubde"
               width={520}
               height={640}
-              className="w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px]"
+              className="w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px] drop-shadow-[0_20px_40px_rgba(0,229,255,0.15)]"
               priority
-              unoptimized
             />
           </Magnet>
-        </div>
+        </motion.div>
       </FadeIn>
     </section>
   )

@@ -1,7 +1,5 @@
 'use client'
 
-'use client'
-
 import FadeIn from './FadeIn'
 import { services } from '@/lib/services'
 

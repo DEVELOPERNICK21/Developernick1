@@ -1,33 +1,41 @@
 'use client'
 
-import { Smartphone, Code2, Layers, Cpu } from 'lucide-react'
+import { useRef } from 'react'
 import FadeIn from './FadeIn'
 import ContactButton from './ContactButton'
 import AnimatedText from './AnimatedText'
+import ScrollModel from './ScrollModel'
 import TerminalCard from '@/components/TerminalCard'
-
-const DECORATIONS = [
-  { Icon: Smartphone, className: 'absolute top-[6%] left-[3%] md:left-[6%]', delay: 0.1, x: -60, color: '#00E5FF' },
-  { Icon: Code2, className: 'absolute bottom-[10%] left-[5%] md:left-[10%]', delay: 0.25, x: -60, color: '#00B8D4' },
-  { Icon: Layers, className: 'absolute top-[6%] right-[3%] md:right-[6%]', delay: 0.15, x: 60, color: '#00E5FF' },
-  { Icon: Cpu, className: 'absolute bottom-[10%] right-[5%] md:right-[10%]', delay: 0.3, x: 60, color: '#00B8D4' },
-]
+import { ABOUT_MODELS } from '@/lib/constants'
 
 const ABOUT_TEXT =
   "Five years building React Native apps — from architecture to App Store submission. I've shipped apps for events, time tracking, and Singapore-based consumer products. Based in Pune, India. Two platforms, one focus: build things that ship."
 
 export default function AboutSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+
   return (
     <section
+      ref={sectionRef}
       id="about"
-      className="relative flex min-h-screen flex-col items-center justify-center px-5 py-20 sm:px-8 md:px-10"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 py-20 sm:px-8 md:px-10"
     >
-      {DECORATIONS.map(({ Icon, className, delay, x, color }) => (
-        <FadeIn key={className} delay={delay} x={x} y={0} duration={0.9} className={className}>
-          <Icon
-            className="opacity-80"
-            style={{ width: 'clamp(80px, 12vw, 160px)', height: 'clamp(80px, 12vw, 160px)', color }}
-            strokeWidth={1}
+      {ABOUT_MODELS.map(model => (
+        <FadeIn
+          key={model.alt}
+          delay={model.delay ?? 0}
+          x={model.x ?? 0}
+          y={0}
+          duration={0.9}
+          className={model.className}
+        >
+          <ScrollModel
+            src={model.src}
+            alt={model.alt}
+            className="w-full"
+            parallaxY={model.parallaxY}
+            parallaxRotate={model.parallaxRotate}
+            containerRef={sectionRef}
           />
         </FadeIn>
       ))}

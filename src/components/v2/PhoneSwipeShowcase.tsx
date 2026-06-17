@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import PhoneFrame from './PhoneFrame'
 
 interface PhoneSwipeShowcaseProps {
@@ -8,56 +8,106 @@ interface PhoneSwipeShowcaseProps {
   alt: string
 }
 
+const SWIPE_THRESHOLD = 48
+const LOCK_THRESHOLD = 10
+
 export default function PhoneSwipeShowcase({ images, alt }: PhoneSwipeShowcaseProps) {
-  const trackRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
-
-  const syncActiveIndex = useCallback(() => {
-    const track = trackRef.current
-    if (!track || track.clientWidth === 0) return
-    const index = Math.round(track.scrollLeft / track.clientWidth)
-    setActive(Math.min(Math.max(index, 0), images.length - 1))
-  }, [images.length])
-
-  useEffect(() => {
-    const track = trackRef.current
-    if (!track) return
-
-    syncActiveIndex()
-    track.addEventListener('scroll', syncActiveIndex, { passive: true })
-    return () => track.removeEventListener('scroll', syncActiveIndex)
-  }, [syncActiveIndex])
+  const [dragOffset, setDragOffset] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const touchRef = useRef<{ x: number; y: number; locked: 'horizontal' | 'vertical' | null }>({
+    x: 0,
+    y: 0,
+    locked: null,
+  })
 
   const goTo = (index: number) => {
-    const track = trackRef.current
-    if (!track) return
-    track.scrollTo({ left: index * track.clientWidth, behavior: 'smooth' })
-    setActive(index)
+    setActive(Math.max(0, Math.min(index, images.length - 1)))
+    setDragOffset(0)
+    setIsDragging(false)
+  }
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      locked: null,
+    }
+    setIsDragging(false)
+  }
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    const touch = touchRef.current
+    const dx = e.touches[0].clientX - touch.x
+    const dy = e.touches[0].clientY - touch.y
+
+    if (touch.locked === null) {
+      if (Math.abs(dx) < LOCK_THRESHOLD && Math.abs(dy) < LOCK_THRESHOLD) return
+      touch.locked = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical'
+    }
+
+    if (touch.locked === 'vertical') return
+
+    setIsDragging(true)
+    setDragOffset(dx)
+  }
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const touch = touchRef.current
+
+    if (touch.locked === 'horizontal') {
+      const dx = e.changedTouches[0].clientX - touch.x
+      if (dx < -SWIPE_THRESHOLD) goTo(active + 1)
+      else if (dx > SWIPE_THRESHOLD) goTo(active - 1)
+      else {
+        setDragOffset(0)
+        setIsDragging(false)
+      }
+    }
+
+    touchRef.current = { x: 0, y: 0, locked: null }
+  }
+
+  const onTouchCancel = () => {
+    setDragOffset(0)
+    setIsDragging(false)
+    touchRef.current = { x: 0, y: 0, locked: null }
   }
 
   return (
     <div className="w-full">
       <div
-        ref={trackRef}
-        className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] [touch-action:pan-x] [&::-webkit-scrollbar]:hidden"
+        className="touch-pan-y overflow-hidden"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchCancel}
         aria-roledescription="carousel"
         aria-label={`${alt} screenshots`}
       >
-        {images.map((src, i) => (
-          <div
-            key={src}
-            className="flex w-full flex-shrink-0 snap-center snap-always items-center justify-center px-1"
-            aria-hidden={active !== i}
-          >
-            <PhoneFrame
-              src={src}
-              alt={`${alt} screen ${i + 1}`}
-              widthStyle="min(100%, 240px)"
-              premium
-              className="mx-auto"
-            />
-          </div>
-        ))}
+        <div
+          className="flex"
+          style={{
+            transform: `translateX(calc(-${active * 100}% + ${dragOffset}px))`,
+            transition: isDragging ? 'none' : 'transform 0.32s cubic-bezier(0.25, 0.1, 0.25, 1)',
+          }}
+        >
+          {images.map((src, i) => (
+            <div
+              key={src}
+              className="flex w-full flex-shrink-0 items-center justify-center px-1"
+              aria-hidden={active !== i}
+            >
+              <PhoneFrame
+                src={src}
+                alt={`${alt} screen ${i + 1}`}
+                widthStyle="min(100%, 240px)"
+                premium
+                className="mx-auto pointer-events-none select-none"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="mt-4 flex items-center justify-center gap-2" role="tablist" aria-label="Screenshot navigation">
@@ -102,7 +152,7 @@ export default function PhoneSwipeShowcase({ images, alt }: PhoneSwipeShowcasePr
       </div>
 
       <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-brand-muted">
-        Swipe to explore
+        Tap thumbnails or swipe sideways
       </p>
     </div>
   )

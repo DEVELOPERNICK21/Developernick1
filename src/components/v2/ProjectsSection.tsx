@@ -4,8 +4,6 @@ import { projects, stickyProjects } from '@/lib/projects'
 import StickyProjectCard from './StickyProjectCard'
 import ProjectCard from '@/components/ProjectCard'
 import FadeIn from './FadeIn'
-import ContactButton from './ContactButton'
-import Logo from '@/components/Logo'
 
 const moreProjects = projects.filter(p => !p.stickyFeatured)
 
@@ -42,7 +40,7 @@ export default function ProjectsSection() {
           </FadeIn>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {moreProjects.map((p, i) => (
-              <FadeIn key={p.title} delay={i * 80}>
+              <FadeIn key={p.title} delay={i * 0.08}>
                 <ProjectCard project={p} />
               </FadeIn>
             ))}
@@ -50,15 +48,6 @@ export default function ProjectsSection() {
         </div>
       )}
 
-      <div id="contact" className="mt-24 flex flex-col items-center gap-6">
-        <FadeIn>
-          <ContactButton label="developernick1@gmail.com" />
-        </FadeIn>
-        <footer className="flex items-center gap-3 pt-8">
-          <Logo size={24} />
-          <span className="text-sm text-brand-muted">Nick Kubde · Developer Nick © 2026</span>
-        </footer>
-      </div>
     </section>
   )
 }

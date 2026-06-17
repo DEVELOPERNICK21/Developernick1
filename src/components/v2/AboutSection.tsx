@@ -51,8 +51,8 @@ export default function AboutSection() {
         </FadeIn>
 
         <div className="flex w-full flex-col items-center gap-12 lg:flex-row lg:items-start lg:justify-center lg:gap-16">
-          <div className="flex flex-col items-center gap-16 sm:gap-20 md:gap-24 lg:flex-1">
-            <AnimatedText text={ABOUT_TEXT} />
+          <div className="flex w-full max-w-[560px] flex-col items-center gap-16 sm:gap-20 md:gap-24 lg:max-w-none lg:flex-1">
+            <AnimatedText text={ABOUT_TEXT} className="w-full" />
             <div className="flex flex-wrap justify-center gap-4">
               <ContactButton label="Get in touch" />
               <a

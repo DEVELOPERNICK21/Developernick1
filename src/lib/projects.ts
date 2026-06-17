@@ -18,10 +18,10 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    label: 'Personal · Launching 18 June',
+    label: 'Personal · Live on App Store',
     title: 'Pawfect — Pet Health Scheduling',
     heroTitle: 'Pawfect',
-    heroMeta: 'Pet Health · Launching',
+    heroMeta: 'Pet Health · Launched',
     description:
       'Vet-validated health timeline for dog and cat owners — vaccinations, deworming, and life stage milestones in one beautiful offline-first app. India-first protocols with smart reminders and PDF export for vet visits.',
     tags: ['React Native', 'TypeScript', 'Offline-First', 'iOS', 'Android', 'Pet Care'],
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     featured: true,
     stickyFeatured: true,
     showInHero: true,
-    heroBadge: 'Launching',
+    heroBadge: 'Launched',
     icon: PawPrint,
     iconUrl: '/icons/pawfect-icon.png',
   },

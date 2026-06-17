@@ -23,23 +23,31 @@ function MarqueeRow({
       className="flex gap-3"
       style={{ transform: `translateX(${translateX}px)`, willChange: 'transform' }}
     >
-      {doubled.map((project, i) => (
-        <div
-          key={`${project.title}-${i}`}
-          className="flex h-[200px] w-[200px] flex-shrink-0 flex-col items-center justify-center gap-3 rounded-2xl border border-brand-border bg-brand-surface p-4 sm:h-[240px] sm:w-[280px] md:h-[270px] md:w-[320px]"
-        >
-          <AppIcon
-            iconUrl={project.iconUrl}
-            fallback={project.icon}
-            alt={project.title}
-            size="marquee"
-            className="shadow-md"
-          />
-          <span className="truncate text-center font-mono text-[10px] uppercase tracking-wider text-brand-muted">
-            {project.heroTitle ?? project.title.split('—')[0].trim()}
-          </span>
-        </div>
-      ))}
+      {doubled.map((project, i) => {
+        const href = project.links[0]?.href ?? '#projects'
+        return (
+          <a
+            key={`${project.title}-${i}`}
+            href={href}
+            target={href.startsWith('http') ? '_blank' : '_self'}
+            rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            className="group flex h-[200px] w-[200px] flex-shrink-0 flex-col items-center justify-center gap-3 rounded-2xl border border-brand-border bg-brand-surface p-4 transition-all duration-300 hover:border-brand-accent/50 hover:shadow-glow sm:h-[240px] sm:w-[280px] md:h-[270px] md:w-[320px]"
+          >
+            <div className="transition-transform duration-300 group-hover:scale-110">
+              <AppIcon
+                iconUrl={project.iconUrl}
+                fallback={project.icon}
+                alt={project.title}
+                size="marquee"
+                className="shadow-md"
+              />
+            </div>
+            <span className="truncate text-center font-mono text-[10px] uppercase tracking-wider text-brand-muted transition-colors duration-300 group-hover:text-brand-accent">
+              {project.heroTitle ?? project.title.split('—')[0].trim()}
+            </span>
+          </a>
+        )
+      })}
     </div>
   )
 }

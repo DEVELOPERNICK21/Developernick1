@@ -8,6 +8,7 @@ import ContactButton from './ContactButton'
 import Magnet from './Magnet'
 import ScrollModel from './ScrollModel'
 import { AVATAR_URL, HERO_FLOATING_MODELS } from '@/lib/constants'
+import { useActiveSection } from '@/hooks/useActiveSection'
 
 const NAV_LINKS = [
   { label: 'Work', href: '#projects' },
@@ -18,6 +19,8 @@ const NAV_LINKS = [
 
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const activeSection = useActiveSection(['projects', 'skills', 'about', 'contact'])
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
@@ -42,15 +45,22 @@ export default function HeroSection() {
 
       <FadeIn delay={0} y={-20}>
         <nav className="relative z-40 flex items-center justify-between px-5 pt-5 sm:px-6 sm:pt-6 md:px-10 md:pt-8">
-          {NAV_LINKS.map(link => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-[11px] font-medium uppercase tracking-wider text-brand-light transition-opacity duration-200 hover:opacity-70 sm:text-sm md:text-lg lg:text-[1.4rem]"
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map(link => {
+            const isActive = activeSection === link.href.replace('#', '')
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                className={`text-[11px] font-medium uppercase tracking-wider transition-all duration-300 sm:text-sm md:text-lg lg:text-[1.4rem] ${
+                  isActive
+                    ? 'text-brand-accent opacity-100'
+                    : 'text-brand-light opacity-60 hover:opacity-100'
+                }`}
+              >
+                {link.label}
+              </a>
+            )
+          })}
         </nav>
       </FadeIn>
 
@@ -83,7 +93,6 @@ export default function HeroSection() {
               className="hero-avatar-shadow absolute bottom-[2%] left-1/2 z-0 h-10 w-[72%] -translate-x-1/2 sm:bottom-[4%] sm:h-14 sm:w-[68%] md:h-16"
               aria-hidden
             />
-
             <Magnet padding={120} strength={2.5} tilt={0.08} className="relative z-10">
               <Image
                 src={AVATAR_URL}

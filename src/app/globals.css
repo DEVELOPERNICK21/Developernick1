@@ -65,6 +65,60 @@ body {
   }
 }
 
+/* Premium phone frame — project section */
+.phone-frame-premium-shell {
+  background: linear-gradient(
+    145deg,
+    #b8b8b8 0%,
+    #f0f0f0 18%,
+    #8e8e93 42%,
+    #d1d1d6 58%,
+    #636366 78%,
+    #aeaeb2 100%
+  );
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 0 40px rgba(0, 229, 255, 0.08);
+}
+
+.phone-frame-premium::after {
+  content: '';
+  position: absolute;
+  inset: 8% 10% auto 10%;
+  height: 35%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.07), transparent 70%);
+  pointer-events: none;
+  z-index: 25;
+}
+
+/* Apps shipped — diagonal phone wall (shallow angle = less empty corner space) */
+.marquee-diagonal-lane {
+  transform: rotate(-22deg);
+  transform-origin: center center;
+}
+
+@media (min-width: 768px) {
+  .marquee-diagonal-lane {
+    transform: rotate(-22deg) scale(1.22);
+  }
+}
+
+@media (min-width: 1024px) {
+  .marquee-diagonal-lane {
+    transform: rotate(-22deg) scale(1.38);
+  }
+}
+
+@media (min-width: 1280px) {
+  .marquee-diagonal-lane {
+    transform: rotate(-22deg) scale(1.52);
+  }
+}
+
 /* ── Classic (spotlight hero) ── */
 @keyframes heroReveal {
   0%   { opacity: 0; transform: translateY(28px); filter: blur(12px); }

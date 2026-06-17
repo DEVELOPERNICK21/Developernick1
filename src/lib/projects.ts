@@ -1,5 +1,10 @@
 import { Clock, ScanLine, MapPin, Shield, UserCheck, Globe, PawPrint, LucideIcon } from 'lucide-react'
 
+export interface ProjectPreviewImages {
+  marquee: string
+  sticky: [string, string, string]
+}
+
 export interface Project {
   label: string
   title: string
@@ -14,6 +19,7 @@ export interface Project {
   heroBadge?: string
   icon: LucideIcon
   iconUrl?: string
+  previewImages?: ProjectPreviewImages
 }
 
 export const projects: Project[] = [
@@ -32,6 +38,10 @@ export const projects: Project[] = [
     heroBadge: 'Launched',
     icon: PawPrint,
     iconUrl: '/icons/pawfect-icon.png',
+    previewImages: {
+      marquee: '/previews/pawfect-2.png',
+      sticky: ['/previews/pawfect-1.png', '/previews/pawfect-2.png', '/previews/pawfect-3.png'],
+    },
   },
   {
     label: 'Personal · Live on Play Store',
@@ -51,6 +61,10 @@ export const projects: Project[] = [
     heroBadge: 'Play Store',
     icon: Clock,
     iconUrl: 'https://play-lh.googleusercontent.com/47Ho31IBz_BXuyYp_cdzsuKVNI8zHVMPRQwqIxpfW22jIaTpXtBAUnWEt8DqQ3we6UfZrU0A-bhkAsyy-AT1VlI=w512-rw',
+    previewImages: {
+      marquee: '/previews/until-1.webp',
+      sticky: ['/previews/until-1.webp', '/previews/until-2.webp', '/previews/until-3.webp'],
+    },
   },
   {
     label: 'Organization · Internal',
@@ -69,6 +83,10 @@ export const projects: Project[] = [
     heroBadge: 'iOS + Android',
     icon: ScanLine,
     iconUrl: '/icons/dmg-events-icon.webp',
+    previewImages: {
+      marquee: '/previews/dmg-1.webp',
+      sticky: ['/previews/dmg-1.webp', '/previews/dmg-2.webp', '/previews/dmg-3.webp'],
+    },
   },
   {
     label: 'Organization · Internal',
@@ -87,6 +105,10 @@ export const projects: Project[] = [
     heroBadge: 'iOS + Android',
     icon: MapPin,
     iconUrl: '/icons/expo-sharjah-icon.webp',
+    previewImages: {
+      marquee: '/previews/sharjah-1.webp',
+      sticky: ['/previews/sharjah-1.webp', '/previews/sharjah-2.webp', '/previews/sharjah-3.webp'],
+    },
   },
   {
     label: 'Singapore · Live on Stores',
@@ -100,6 +122,10 @@ export const projects: Project[] = [
     ],
     icon: Globe,
     iconUrl: 'https://play-lh.googleusercontent.com/ixQvuz_DSw7CK8iY5IA2eN52ZPhjs0xbhQJv0DsA435WbbxVqmmnulcH5yu9Sqnw6mBv=w512-rw',
+    previewImages: {
+      marquee: '/previews/bigfoot-1.webp',
+      sticky: ['/previews/bigfoot-1.webp', '/previews/bigfoot-2.webp', '/previews/bigfoot-3.webp'],
+    },
   },
   {
     label: 'Organization · Not on Stores',
@@ -110,6 +136,14 @@ export const projects: Project[] = [
     links: [{ label: 'Web Guide', href: 'https://badge-scanner-five.vercel.app/' }],
     icon: Shield,
     iconUrl: '/icons/access-control-icon.png',
+    previewImages: {
+      marquee: '/previews/access-control-2.png',
+      sticky: [
+        '/previews/access-control-1.png',
+        '/previews/access-control-2.png',
+        '/previews/access-control-3.png',
+      ],
+    },
   },
   {
     label: 'Organization · Not on Stores',
@@ -120,6 +154,10 @@ export const projects: Project[] = [
     links: [{ label: 'Web Guide', href: 'https://id-control.vercel.app/' }],
     icon: UserCheck,
     iconUrl: '/icons/id-control-icon.png',
+    previewImages: {
+      marquee: '/previews/id-control-1.png',
+      sticky: ['/previews/id-control-1.png', '/previews/id-control-2.png', '/previews/id-control-3.png'],
+    },
   },
 ]
 

@@ -65,12 +65,14 @@ export default function HeroSection() {
       </FadeIn>
 
       <motion.div
-        className="relative z-10 overflow-hidden px-2 pt-2 sm:px-0 sm:pt-0"
+        className="relative z-10 overflow-hidden px-5 pt-2 sm:px-0 sm:pt-0"
         style={{ y: headingY, opacity: headingOpacity }}
       >
         <FadeIn delay={0.15} y={40}>
-          <h1 className="hero-heading mt-2 w-full whitespace-nowrap text-[13.5vw] font-black uppercase leading-[0.9] tracking-tight sm:mt-4 sm:text-[14vw] md:-mt-2 md:text-[15vw] lg:text-[16vw]">
-            Hi, i&apos;m nick
+          <h1 className="hero-heading mx-auto mt-2 w-fit text-left font-black uppercase tracking-tight sm:mt-4 sm:w-full sm:whitespace-nowrap sm:text-[14vw] sm:leading-[0.9] md:-mt-2 md:text-[15vw] lg:text-[16vw]">
+            <span className="block text-[28vw] leading-[0.82] sm:hidden">Hi,</span>
+            <span className="block text-[36vw] leading-[0.82] sm:hidden">i&apos;m nick</span>
+            <span className="hidden sm:inline">Hi, i&apos;m nick</span>
           </h1>
         </FadeIn>
       </motion.div>

@@ -9,6 +9,7 @@ export interface Project {
   tags: string[]
   links: { label: string; href: string }[]
   featured?: boolean
+  stickyFeatured?: boolean
   showInHero?: boolean
   heroBadge?: string
   icon: LucideIcon
@@ -28,6 +29,7 @@ export const projects: Project[] = [
       { label: 'Website', href: 'https://developernick1-until.vercel.app/' },
     ],
     featured: true,
+    stickyFeatured: true,
     showInHero: true,
     heroBadge: 'Play Store',
     icon: Clock,
@@ -45,6 +47,7 @@ export const projects: Project[] = [
       { label: 'App Store', href: 'https://apps.apple.com/in/app/dmg-events-lead-retrieval/id1270582429' },
     ],
     showInHero: true,
+    stickyFeatured: true,
     heroBadge: 'iOS + Android',
     icon: ScanLine,
     iconUrl: 'https://play-lh.googleusercontent.com/p-Dzkslqvx5deZAwBcXSKc1HiJm08FbjuA2yM4y-NFFDdKrawH128XbFcbcdrMQEn49PDKmhtbqRdMpfSNwdQA=w512-rw',
@@ -61,6 +64,7 @@ export const projects: Project[] = [
       { label: 'App Store', href: 'https://apps.apple.com/us/app/expo-sharjah-lead-capture/id6720764109' },
     ],
     showInHero: true,
+    stickyFeatured: true,
     heroBadge: 'iOS + Android',
     icon: MapPin,
     iconUrl: 'https://play-lh.googleusercontent.com/h9G48Ddd6Ry_lif9jHsfn9la_jjBSxm203iZF0pJ7uoOCKTkzfoFZ0DiLDdA_76ZJ_H9bKm4Rdx4OXoAv8Hs2Q=w512-rw',
@@ -101,3 +105,4 @@ export const projects: Project[] = [
 ]
 
 export const heroProjects = projects.filter(p => p.showInHero)
+export const stickyProjects = projects.filter(p => p.stickyFeatured)

@@ -1,6 +1,6 @@
-import TerminalCard from './TerminalCard'
+import TerminalCard from '@/components/TerminalCard'
 
-export default function AboutSection() {
+export default function ClassicAboutSection() {
   return (
     <section id="about" className="py-24 px-6 sm:px-10 md:px-16 bg-brand-surface border-t border-brand-border">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -10,13 +10,16 @@ export default function AboutSection() {
             Developer.<br />Creator.<br />Builder.
           </h2>
           <p className="text-brand-muted leading-relaxed mb-4">
-            Five years building React Native apps — from architecture decisions to App Store submissions. I&apos;ve shipped apps for events, time tracking, pet health, and Singapore-based consumer products.
+            Five years building React Native apps — from architecture decisions to App Store submissions.
+            I&apos;ve shipped apps for events, time tracking, and Singapore-based consumer products.
           </p>
           <p className="text-brand-muted leading-relaxed mb-4">
-            Based in Pune, India. I work across both platforms — iOS and Android — and care about clean architecture, fast load times, and offline reliability.
+            Based in Pune, India. I work across both platforms — iOS and Android — and care about clean
+            architecture, fast load times, and offline reliability.
           </p>
           <p className="text-brand-muted leading-relaxed">
-            Outside of code, I run a fitness & content creation side — building Instagram presence and working on personal brand projects. Two tracks, one focus: build things that ship.
+            Outside of code, I run a fitness & content creation side — building Instagram presence and
+            working on personal brand projects. Two tracks, one focus: build things that ship.
           </p>
           <div className="flex gap-4 mt-8">
             <a

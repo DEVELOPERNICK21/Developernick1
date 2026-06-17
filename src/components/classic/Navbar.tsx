@@ -1,7 +1,8 @@
 'use client'
+
 import { useState } from 'react'
 import Link from 'next/link'
-import Logo from './Logo'
+import ClassicLogo from './Logo'
 import { Menu, X } from 'lucide-react'
 
 const navLinks = [
@@ -10,17 +11,19 @@ const navLinks = [
   { label: 'About', href: '#about' },
 ]
 
-export default function Navbar() {
+export default function ClassicNavbar() {
   const [open, setOpen] = useState(false)
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-brand-border bg-brand-bg/90 backdrop-blur-md">
       <div className="flex items-center justify-between px-6 sm:px-10 py-4">
         <Link href="/" className="flex items-center gap-3">
-          <Logo size={36} />
+          <ClassicLogo size={36} />
           <div className="flex flex-col">
             <span className="text-white font-bold text-lg tracking-tight leading-none">Nick Kubde</span>
-            <span className="font-mono text-[10px] text-brand-accent tracking-widest uppercase hidden sm:block">React Native Dev</span>
+            <span className="font-mono text-[10px] text-brand-accent tracking-widest uppercase hidden sm:block">
+              React Native Dev
+            </span>
           </div>
         </Link>
 

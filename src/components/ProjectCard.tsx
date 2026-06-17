@@ -11,7 +11,6 @@ export default function ProjectCard({ project }: { project: Project }) {
       group bg-brand-surface border border-brand-border rounded-2xl p-6 sm:p-8
       flex flex-col gap-5
       hover:border-brand-accent/40 hover:shadow-glow transition-all duration-300
-      ${featured ? 'md:col-span-2' : ''}
     `}>
       <div className="flex items-start justify-between gap-4">
         {primaryLink ? (

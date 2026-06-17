@@ -1,10 +1,14 @@
+'use client'
+
 import Image from 'next/image'
+import { useState } from 'react'
 import { LucideIcon } from 'lucide-react'
 
 const sizeMap = {
   sm: { box: 36, icon: 16 },
   md: { box: 44, icon: 20 },
   lg: { box: 56, icon: 24 },
+  xl: { box: 120, icon: 32 },
 }
 
 interface AppIconProps {
@@ -23,11 +27,12 @@ export default function AppIcon({
   className = '',
 }: AppIconProps) {
   const { box, icon } = sizeMap[size]
+  const [failed, setFailed] = useState(false)
 
-  if (iconUrl) {
+  if (iconUrl && !failed) {
     return (
       <div
-        className={`relative flex-shrink-0 overflow-hidden rounded-[22%] border border-brand-border bg-brand-tag shadow-sm transition-all duration-300 group-hover:border-brand-accent/50 group-hover:shadow-glow ${className}`}
+        className={`relative flex-shrink-0 overflow-hidden rounded-[22%] border border-brand-border bg-brand-surface shadow-sm transition-all duration-300 group-hover:border-brand-accent/50 group-hover:shadow-glow ${className}`}
         style={{ width: box, height: box }}
       >
         <Image
@@ -35,7 +40,9 @@ export default function AppIcon({
           alt={alt}
           width={box}
           height={box}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain p-1"
+          unoptimized
+          onError={() => setFailed(true)}
         />
       </div>
     )

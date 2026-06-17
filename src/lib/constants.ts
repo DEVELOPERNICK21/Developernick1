@@ -5,7 +5,6 @@ import modelSmartphone from '@/assets/model-smartphone.png'
 import modelTerminal from '@/assets/model-terminal.png'
 import modelAppShip from '@/assets/model-app-ship.png'
 
-// Bearded 3D portrait for the magnetic hero (checkerboard removed)
 export const AVATAR_URL = nickAvatarBeard
 
 export type Model3D = {
@@ -66,7 +65,7 @@ export const HERO_FLOATING_MODELS: Model3D[] = [
     src: modelCodeBrackets,
     alt: 'Code',
     className:
-      'pointer-events-none absolute -left-4 top-[28%] w-16 opacity-80 sm:left-8 sm:w-24 md:w-32',
+      'pointer-events-none absolute left-[3%] top-[52%] z-[15] w-14 opacity-75 sm:left-[8%] sm:top-[38%] sm:w-20 md:left-[10%] md:top-[32%] md:w-28 lg:w-32',
     parallaxY: 60,
     parallaxRotate: 12,
   },
@@ -74,7 +73,7 @@ export const HERO_FLOATING_MODELS: Model3D[] = [
     src: modelSmartphone,
     alt: 'Mobile app',
     className:
-      'pointer-events-none absolute -right-2 top-[22%] w-14 opacity-75 sm:right-10 sm:w-20 md:w-28',
+      'pointer-events-none absolute right-[3%] top-[48%] z-[15] w-12 opacity-70 sm:right-[8%] sm:top-[34%] sm:w-[4.5rem] md:right-[10%] md:top-[28%] md:w-24 lg:w-28',
     parallaxY: 45,
     parallaxRotate: -10,
   },
@@ -82,7 +81,7 @@ export const HERO_FLOATING_MODELS: Model3D[] = [
     src: modelTerminal,
     alt: 'Terminal',
     className:
-      'pointer-events-none absolute bottom-[32%] left-[8%] hidden w-20 opacity-70 sm:block md:w-28',
+      'pointer-events-none absolute bottom-[34%] left-[6%] z-[15] hidden w-20 opacity-70 sm:block md:bottom-[30%] md:left-[12%] md:w-28',
     parallaxY: 70,
     parallaxRotate: 15,
   },
@@ -90,7 +89,7 @@ export const HERO_FLOATING_MODELS: Model3D[] = [
     src: modelAppShip,
     alt: 'Ship product',
     className:
-      'pointer-events-none absolute bottom-[30%] right-[6%] hidden w-24 opacity-70 sm:block md:w-32',
+      'pointer-events-none absolute bottom-[32%] right-[5%] z-[15] hidden w-24 opacity-70 sm:block md:bottom-[28%] md:right-[11%] md:w-32',
     parallaxY: 55,
     parallaxRotate: -12,
   },

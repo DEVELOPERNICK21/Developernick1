@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 import { projects } from '@/lib/projects'
+import AppIcon from '@/components/AppIcon'
 
 const withIcons = projects.filter(p => p.iconUrl)
 
@@ -26,18 +26,15 @@ function MarqueeRow({
       {doubled.map((project, i) => (
         <div
           key={`${project.title}-${i}`}
-          className="relative flex h-[200px] w-[200px] flex-shrink-0 flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border border-brand-border bg-brand-surface p-4 sm:h-[240px] sm:w-[280px] md:h-[270px] md:w-[320px]"
+          className="flex h-[200px] w-[200px] flex-shrink-0 flex-col items-center justify-center gap-3 rounded-2xl border border-brand-border bg-brand-surface p-4 sm:h-[240px] sm:w-[280px] md:h-[270px] md:w-[320px]"
         >
-          <div className="relative h-[70%] w-[70%]">
-            <Image
-              src={project.iconUrl!}
-              alt={project.title}
-              fill
-              className="object-contain"
-              sizes="200px"
-              unoptimized
-            />
-          </div>
+          <AppIcon
+            iconUrl={project.iconUrl}
+            fallback={project.icon}
+            alt={project.title}
+            size="marquee"
+            className="shadow-md"
+          />
           <span className="truncate text-center font-mono text-[10px] uppercase tracking-wider text-brand-muted">
             {project.heroTitle ?? project.title.split('—')[0].trim()}
           </span>

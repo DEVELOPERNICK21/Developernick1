@@ -23,28 +23,30 @@ export default function HeroSection() {
     offset: ['start start', 'end start'],
   })
 
-  const avatarY = useTransform(scrollYProgress, [0, 1], [0, -180])
-  const avatarScale = useTransform(scrollYProgress, [0, 1], [1, 0.82])
-  const avatarRotate = useTransform(scrollYProgress, [0, 1], [0, -8])
-  const headingY = useTransform(scrollYProgress, [0, 1], [0, -120])
-  const headingOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.15])
+  const avatarY = useTransform(scrollYProgress, [0, 1], [0, -160])
+  const avatarScale = useTransform(scrollYProgress, [0, 1], [1, 0.88])
+  const avatarRotate = useTransform(scrollYProgress, [0, 1], [0, -6])
+  const headingY = useTransform(scrollYProgress, [0, 1], [0, -100])
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.12])
 
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-screen flex-col overflow-x-clip bg-brand-bg"
+      className="relative flex h-[100dvh] min-h-[640px] flex-col overflow-x-clip overflow-y-visible bg-brand-bg"
     >
+      <div className="hero-avatar-stage absolute inset-0 z-0" aria-hidden />
+
       {HERO_FLOATING_MODELS.map(model => (
         <ScrollModel key={model.alt} {...model} containerRef={sectionRef} />
       ))}
 
       <FadeIn delay={0} y={-20}>
-        <nav className="relative z-30 flex items-center justify-between px-6 pt-6 md:px-10 md:pt-8">
+        <nav className="relative z-40 flex items-center justify-between px-5 pt-5 sm:px-6 sm:pt-6 md:px-10 md:pt-8">
           {NAV_LINKS.map(link => (
             <a
               key={link.label}
               href={link.href}
-              className="text-sm font-medium uppercase tracking-wider text-brand-light transition-opacity duration-200 hover:opacity-70 md:text-lg lg:text-[1.4rem]"
+              className="text-[11px] font-medium uppercase tracking-wider text-brand-light transition-opacity duration-200 hover:opacity-70 sm:text-sm md:text-lg lg:text-[1.4rem]"
             >
               {link.label}
             </a>
@@ -52,19 +54,59 @@ export default function HeroSection() {
         </nav>
       </FadeIn>
 
-      <motion.div className="overflow-hidden" style={{ y: headingY, opacity: headingOpacity }}>
+      <motion.div
+        className="relative z-10 overflow-hidden px-2 pt-2 sm:px-0 sm:pt-0"
+        style={{ y: headingY, opacity: headingOpacity }}
+      >
         <FadeIn delay={0.15} y={40}>
-          <h1 className="hero-heading mt-6 w-full whitespace-nowrap text-[12vw] font-black uppercase leading-none tracking-tight sm:mt-4 sm:text-[14vw] md:-mt-5 md:text-[15vw] lg:text-[16vw]">
+          <h1 className="hero-heading mt-2 w-full whitespace-nowrap text-[13.5vw] font-black uppercase leading-[0.9] tracking-tight sm:mt-4 sm:text-[14vw] md:-mt-2 md:text-[15vw] lg:text-[16vw]">
             Hi, i&apos;m nick
           </h1>
         </FadeIn>
       </motion.div>
 
-      <div className="relative z-20 mt-auto flex items-end justify-between px-6 pb-7 sm:pb-8 md:px-10 md:pb-10">
+      <FadeIn
+        delay={0.6}
+        y={30}
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center"
+      >
+        <motion.div
+          className="pointer-events-auto relative flex justify-center"
+          style={{ y: avatarY, scale: avatarScale, rotate: avatarRotate, willChange: 'transform' }}
+        >
+          <div className="hero-avatar-float relative flex justify-center">
+            <div
+              className="hero-avatar-glow absolute left-1/2 top-[38%] z-0 h-[55%] w-[85%] -translate-x-1/2 -translate-y-1/2"
+              aria-hidden
+            />
+            <div
+              className="hero-avatar-shadow absolute bottom-[2%] left-1/2 z-0 h-10 w-[72%] -translate-x-1/2 sm:bottom-[4%] sm:h-14 sm:w-[68%] md:h-16"
+              aria-hidden
+            />
+
+            <Magnet padding={120} strength={2.5} tilt={0.08} className="relative z-10">
+              <Image
+                src={AVATAR_URL}
+                alt="Nick Kubde"
+                width={720}
+                height={880}
+                className="relative z-10 w-[min(94vw,440px)] sm:w-[min(72vw,500px)] md:w-[min(58vw,560px)] lg:w-[min(50vw,640px)] xl:w-[680px]"
+                style={{
+                  filter:
+                    'drop-shadow(0 0 40px rgba(0, 229, 255, 0.22)) drop-shadow(0 16px 32px rgba(0, 0, 0, 0.5))',
+                }}
+                priority
+              />
+            </Magnet>
+          </div>
+        </motion.div>
+      </FadeIn>
+
+      <div className="relative z-30 mt-auto flex items-end justify-between gap-3 px-5 pb-6 sm:px-6 sm:pb-8 md:px-10 md:pb-10">
         <FadeIn delay={0.35} y={20}>
           <p
-            className="max-w-[160px] font-light uppercase leading-snug tracking-wide text-brand-light sm:max-w-[240px] md:max-w-[300px]"
-            style={{ fontSize: 'clamp(0.75rem, 1.4vw, 1.5rem)' }}
+            className="max-w-[130px] font-light uppercase leading-snug tracking-wide text-brand-light sm:max-w-[200px] md:max-w-[280px] lg:max-w-[300px]"
+            style={{ fontSize: 'clamp(0.65rem, 1.2vw, 1.5rem)' }}
           >
             a react native developer driven by shipping apps that work offline
           </p>
@@ -74,28 +116,6 @@ export default function HeroSection() {
           <ContactButton />
         </FadeIn>
       </div>
-
-      <FadeIn
-        delay={0.6}
-        y={30}
-        className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 sm:top-auto sm:bottom-0 sm:translate-y-0"
-      >
-        <motion.div
-          className="pointer-events-auto"
-          style={{ y: avatarY, scale: avatarScale, rotate: avatarRotate, willChange: 'transform' }}
-        >
-          <Magnet padding={150} strength={3}>
-            <Image
-              src={AVATAR_URL}
-              alt="Nick Kubde"
-              width={520}
-              height={640}
-              className="w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px] drop-shadow-[0_20px_40px_rgba(0,229,255,0.15)]"
-              priority
-            />
-          </Magnet>
-        </motion.div>
-      </FadeIn>
     </section>
   )
 }

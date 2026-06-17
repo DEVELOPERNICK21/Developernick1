@@ -6,6 +6,7 @@ interface MagnetProps {
   children: ReactNode
   padding?: number
   strength?: number
+  tilt?: number
   className?: string
 }
 
@@ -13,6 +14,7 @@ export default function Magnet({
   children,
   padding = 150,
   strength = 3,
+  tilt = 0.06,
   className = '',
 }: MagnetProps) {
   const ref = useRef<HTMLDivElement>(null)
@@ -54,8 +56,9 @@ export default function Magnet({
       ref={ref}
       className={className}
       style={{
-        transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
-        transition: active ? 'transform 0.3s ease-out' : 'transform 0.6s ease-in-out',
+        transform: `perspective(1200px) translate3d(${position.x}px, ${position.y}px, 0) rotateX(${-position.y * tilt}deg) rotateY(${position.x * tilt}deg)`,
+        transition: active ? 'transform 0.25s ease-out' : 'transform 0.7s ease-in-out',
+        transformStyle: 'preserve-3d',
         willChange: 'transform',
       }}
     >

@@ -9,6 +9,7 @@ const sizeMap = {
   md: { box: 44, icon: 20 },
   lg: { box: 56, icon: 24 },
   xl: { box: 120, icon: 32 },
+  marquee: { box: 160, icon: 40 },
 }
 
 interface AppIconProps {
@@ -32,7 +33,7 @@ export default function AppIcon({
   if (iconUrl && !failed) {
     return (
       <div
-        className={`relative flex-shrink-0 overflow-hidden rounded-[22%] border border-brand-border bg-brand-surface shadow-sm transition-all duration-300 group-hover:border-brand-accent/50 group-hover:shadow-glow ${className}`}
+        className={`relative flex-shrink-0 overflow-hidden rounded-[22%] shadow-sm transition-all duration-300 group-hover:shadow-glow ${className}`}
         style={{ width: box, height: box }}
       >
         <Image
@@ -40,7 +41,7 @@ export default function AppIcon({
           alt={alt}
           width={box}
           height={box}
-          className="h-full w-full object-contain p-1"
+          className="h-full w-full object-cover"
           unoptimized
           onError={() => setFailed(true)}
         />

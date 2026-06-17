@@ -10,6 +10,8 @@ interface PhoneFrameProps {
   heightClass?: string
   /** CSS height value, e.g. clamp(240px, 56vw, 380px) — preferred for responsive sizing */
   heightStyle?: string
+  /** CSS width value — when set, height follows aspect ratio (useful for full-width mobile mockups) */
+  widthStyle?: string
   /** Premium metallic frame for project showcase */
   premium?: boolean
 }
@@ -20,13 +22,18 @@ export default function PhoneFrame({
   className = '',
   heightClass = 'h-[220px]',
   heightStyle,
+  widthStyle,
   premium = false,
 }: PhoneFrameProps) {
   const sizeStyle = {
     aspectRatio: '9 / 19.5' as const,
-    ...(heightStyle ? { height: heightStyle } : {}),
+    ...(widthStyle
+      ? { width: widthStyle, height: 'auto' as const }
+      : heightStyle
+        ? { height: heightStyle }
+        : {}),
   }
-  const sizeClass = heightStyle ? '' : heightClass
+  const sizeClass = heightStyle || widthStyle ? '' : heightClass
 
   if (!premium) {
     return (
@@ -86,7 +93,7 @@ export default function PhoneFrame({
               alt={alt}
               fill
               className="object-contain object-top"
-              sizes="(max-width: 640px) 280px, 380px"
+              sizes={widthStyle ? '(max-width: 640px) 280px, 380px' : '(max-width: 640px) 280px, 380px'}
               unoptimized
             />
             {/* glass reflection */}

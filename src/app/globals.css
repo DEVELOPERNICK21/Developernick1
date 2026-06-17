@@ -95,27 +95,52 @@ body {
   z-index: 25;
 }
 
-/* Apps shipped — diagonal phone wall (shallow angle = less empty corner space) */
+/* Apps shipped — diagonal phone wall (GPU-accelerated) */
 .marquee-diagonal-lane {
-  transform: rotate(-22deg);
+  transform: rotate(-22deg) translateZ(0);
   transform-origin: center center;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.marquee-row {
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.marquee-phone {
+  contain: layout style paint;
+  transform: translateZ(0);
+}
+
+.marquee-section {
+  contain: layout style;
 }
 
 @media (min-width: 768px) {
   .marquee-diagonal-lane {
-    transform: rotate(-22deg) scale(1.22);
+    transform: rotate(-22deg) scale(1.22) translateZ(0);
   }
 }
 
 @media (min-width: 1024px) {
   .marquee-diagonal-lane {
-    transform: rotate(-22deg) scale(1.38);
+    transform: rotate(-22deg) scale(1.38) translateZ(0);
   }
 }
 
 @media (min-width: 1280px) {
   .marquee-diagonal-lane {
-    transform: rotate(-22deg) scale(1.52);
+    transform: rotate(-22deg) scale(1.52) translateZ(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-row {
+    will-change: auto;
+  }
+  .marquee-diagonal-lane {
+    will-change: auto;
   }
 }
 

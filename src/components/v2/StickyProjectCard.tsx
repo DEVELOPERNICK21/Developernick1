@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import type { Project } from '@/lib/projects'
 import LiveProjectButton from './LiveProjectButton'
@@ -24,6 +24,16 @@ function getDisplayName(project: Project) {
 
 export default function StickyProjectCard({ project, index, total }: StickyProjectCardProps) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 640px)')
+    const update = () => setIsDesktop(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'start start'],
@@ -36,17 +46,23 @@ export default function StickyProjectCard({ project, index, total }: StickyProje
   const name = getDisplayName(project)
 
   return (
-    <div ref={containerRef} className="relative h-[95vh] min-h-[680px]">
-      <div className="sticky" style={{ top: `calc(6rem + ${index * 28}px)` }}>
+    <div
+      ref={containerRef}
+      className="relative mb-14 last:mb-0 sm:mb-0 sm:h-[95vh] sm:min-h-[680px]"
+    >
+      <div
+        className="sm:sticky"
+        style={{ top: `calc(6rem + ${index * 28}px)`, zIndex: index + 1 }}
+      >
         <motion.div
-          style={{ scale }}
+          style={{ scale: isDesktop ? scale : 1 }}
           className={`border-2 border-[#D7E2EA] bg-brand-bg p-4 sm:p-6 md:p-8 ${cardRadius}`}
         >
-          <div className="mb-4 flex flex-col gap-5 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6 md:gap-8">
+          <div className="mb-4 flex flex-col gap-4 sm:mb-6 sm:flex-row sm:items-center sm:justify-between sm:gap-5">
+            <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
               <span
-                className="font-black leading-none text-brand-light"
-                style={{ fontSize: 'clamp(3rem, 10vw, 120px)' }}
+                className="shrink-0 font-black leading-none text-brand-light"
+                style={{ fontSize: 'clamp(2.5rem, 10vw, 120px)' }}
               >
                 {String(index + 1).padStart(2, '0')}
               </span>
@@ -62,7 +78,11 @@ export default function StickyProjectCard({ project, index, total }: StickyProje
                 </h3>
               </div>
             </div>
-            {primaryLink && <LiveProjectButton href={primaryLink} />}
+            {primaryLink && (
+              <div className="shrink-0 sm:ml-auto">
+                <LiveProjectButton href={primaryLink} />
+              </div>
+            )}
           </div>
 
           {previews && <PhoneFan images={previews} alt={name} />}

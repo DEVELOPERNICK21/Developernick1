@@ -1,45 +1,66 @@
 import TerminalCard from '@/components/TerminalCard'
+import IslandButton from '@/components/classic/IslandButton'
 
 export default function ClassicAboutSection() {
   return (
-    <section id="about" className="py-24 px-6 sm:px-10 md:px-16 bg-brand-surface border-t border-brand-border">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section
+      id="about"
+      className="border-t border-white/10 bg-brand-bg px-6 py-32 sm:px-10 md:px-16 md:py-40"
+    >
+      <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
         <div>
-          <span className="font-mono text-xs text-brand-accent tracking-widest uppercase block mb-4">About</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-6" style={{ letterSpacing: '-0.03em' }}>
-            Developer.<br />Creator.<br />Builder.
+          <span className="mb-4 block font-mono text-xs uppercase tracking-widest text-brand-accent">
+            About
+          </span>
+          <h2
+            className="mb-6 text-4xl font-black text-white sm:text-5xl"
+            style={{ letterSpacing: '-0.03em' }}
+          >
+            Developer.
+            <br />
+            Creator.
+            <br />
+            Builder.
           </h2>
-          <p className="text-brand-muted leading-relaxed mb-4">
+          <p className="mb-4 leading-relaxed text-brand-muted">
             Five years building React Native apps — from architecture decisions to App Store submissions.
             I&apos;ve shipped apps for events, time tracking, and Singapore-based consumer products.
           </p>
-          <p className="text-brand-muted leading-relaxed mb-4">
+          <p className="mb-4 leading-relaxed text-brand-muted">
             Based in Pune, India. I work across both platforms — iOS and Android — and care about clean
             architecture, fast load times, and offline reliability.
           </p>
-          <p className="text-brand-muted leading-relaxed">
+          <p className="leading-relaxed text-brand-muted">
             Outside of code, I run a fitness & content creation side — building Instagram presence and
             working on personal brand projects. Two tracks, one focus: build things that ship.
           </p>
-          <div className="flex gap-4 mt-8">
-            <a
-              href="mailto:developernick1@gmail.com"
-              className="bg-brand-accent hover:bg-brand-accent2 text-black text-sm font-semibold px-6 py-3 rounded-full transition-all hover:scale-[1.02] active:scale-95 hover:shadow-glow"
-            >
-              Get in touch
-            </a>
-            <a
+          <div className="mt-10 flex gap-8 border-t border-white/10 pt-8 sm:gap-12">
+            {[
+              { value: '6+', label: 'Live Apps' },
+              { value: '2', label: 'Platforms' },
+              { value: '5', label: 'Years' },
+            ].map(stat => (
+              <div key={stat.label} className="flex flex-col gap-1">
+                <span className="font-mono text-2xl font-bold text-white">{stat.value}</span>
+                <span className="text-[10px] uppercase tracking-wide text-brand-muted">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <IslandButton href="mailto:developernick1@gmail.com">Get in touch</IslandButton>
+            <IslandButton
               href="https://www.instagram.com/developernick1/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-brand-border hover:border-brand-accent/50 text-brand-muted hover:text-white text-sm font-medium px-6 py-3 rounded-full transition-all"
+              variant="ghost"
+              external
             >
               Instagram
-            </a>
+            </IslandButton>
           </div>
         </div>
 
-        <TerminalCard />
+        <TerminalCard variant="classic" />
       </div>
     </section>
   )

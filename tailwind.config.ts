@@ -16,6 +16,11 @@ const config: Config = {
           muted: '#6B7280',
           tag: '#111118',
         },
+        classic: {
+          bg: '#050505',
+          surface: '#0E0E0E',
+          border: '#1F1F1F',
+        },
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'sans-serif'],

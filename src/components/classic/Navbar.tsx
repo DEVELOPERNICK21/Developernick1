@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import IslandButton from '@/components/classic/IslandButton'
 import ClassicLogo from './Logo'
@@ -13,10 +13,70 @@ const navLinks = [
 
 export default function ClassicNavbar() {
   const [open, setOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const firstLinkRef = useRef<HTMLAnchorElement>(null)
+  const overlayRef = useRef<HTMLDivElement>(null)
+  const wasOpenRef = useRef(false)
+
+  useEffect(() => {
+    if (!open) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [open])
+
+  useEffect(() => {
+    if (open) {
+      firstLinkRef.current?.focus()
+      wasOpenRef.current = true
+    } else if (wasOpenRef.current) {
+      menuButtonRef.current?.focus()
+      wasOpenRef.current = false
+    }
+  }, [open])
+
+  useEffect(() => {
+    if (!open || !overlayRef.current) return
+
+    const overlay = overlayRef.current
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return
+
+      const focusable = Array.from(
+        overlay.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter(el => el.tabIndex !== -1)
+
+      if (focusable.length === 0) return
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else if (document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [open])
 
   return (
     <nav className="pointer-events-none fixed left-0 right-0 top-0 z-[100] flex justify-center px-4 pt-5">
       <div
+        ref={overlayRef}
         className={`pointer-events-auto fixed inset-0 bg-black/80 backdrop-blur-3xl transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] md:hidden ${
           open ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
@@ -26,6 +86,7 @@ export default function ClassicNavbar() {
           {navLinks.map((link, index) => (
             <a
               key={link.label}
+              ref={index === 0 ? firstLinkRef : undefined}
               href={link.href}
               onClick={() => setOpen(false)}
               tabIndex={open ? 0 : -1}
@@ -79,6 +140,7 @@ export default function ClassicNavbar() {
             Hire Me
           </IslandButton>
           <button
+            ref={menuButtonRef}
             onClick={() => setOpen(o => !o)}
             className="relative flex h-10 w-10 items-center justify-center rounded-full text-brand-muted transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-white md:hidden"
             aria-label="Toggle menu"

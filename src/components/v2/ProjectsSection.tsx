@@ -11,7 +11,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative z-10 -mt-10 rounded-t-[40px] border-t border-white/10 bg-classic-bg px-5 pb-20 pt-20 sm:-mt-12 sm:rounded-t-[50px] sm:px-8 md:-mt-14 md:rounded-t-[60px] md:px-10"
+      className="relative z-10 -mt-10 rounded-t-[40px] bg-brand-bg px-5 pb-20 pt-20 sm:-mt-12 sm:rounded-t-[50px] sm:px-8 md:-mt-14 md:rounded-t-[60px] md:px-10"
     >
       <h2
         className="hero-heading mb-16 text-center font-black uppercase leading-none tracking-tight sm:mb-20 md:mb-28"
@@ -41,7 +41,7 @@ export default function ProjectsSection() {
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {moreProjects.map((p, i) => (
               <FadeIn key={p.title} delay={i * 0.08}>
-                <ProjectCard project={p} variant="classic" />
+                <ProjectCard project={p} />
               </FadeIn>
             ))}
           </div>

@@ -10,7 +10,7 @@ import ContactSection from '@/components/v2/ContactSection'
 
 export default function V2Page() {
   return (
-    <main className="film-grain overflow-x-clip bg-classic-bg font-kanit" style={{ overflowX: 'clip' }}>
+    <main className="overflow-x-clip font-kanit" style={{ overflowX: 'clip' }}>
       <HeroSection />
       <MarqueeSection />
       <ModelParallaxBridge />

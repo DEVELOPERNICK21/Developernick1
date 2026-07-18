@@ -6,7 +6,6 @@ import ContactButton from './ContactButton'
 import AnimatedText from './AnimatedText'
 import ScrollModel from './ScrollModel'
 import TerminalCard from '@/components/TerminalCard'
-import IslandButton from '@/components/classic/IslandButton'
 import { ABOUT_MODELS } from '@/lib/constants'
 
 const ABOUT_TEXT =
@@ -56,18 +55,19 @@ export default function AboutSection() {
             <AnimatedText text={ABOUT_TEXT} className="w-full" />
             <div className="flex flex-wrap justify-center gap-4">
               <ContactButton label="Get in touch" />
-              <IslandButton
+              <a
                 href="https://www.instagram.com/developernick1/"
-                variant="ghost"
-                external
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border-2 border-brand-accent/40 px-8 py-3 text-xs font-medium uppercase tracking-widest text-brand-light transition-colors hover:bg-brand-accent/10 sm:text-sm"
               >
                 Instagram
-              </IslandButton>
+              </a>
             </div>
           </div>
 
           <FadeIn delay={0.2} y={30} className="w-full max-w-md lg:flex-1">
-            <TerminalCard variant="classic" />
+            <TerminalCard />
           </FadeIn>
         </div>
       </div>

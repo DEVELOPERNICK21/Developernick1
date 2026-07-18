@@ -1,17 +1,20 @@
 import { ExternalLink } from 'lucide-react'
 import { Project } from '@/lib/projects'
+import DoubleBezel from '@/components/classic/DoubleBezel'
 import AppIcon from './AppIcon'
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({
+  project,
+  variant = 'default',
+}: {
+  project: Project
+  variant?: 'default' | 'classic'
+}) {
   const { label, title, description, tags, links, featured, icon, iconUrl } = project
   const primaryLink = links[0]?.href
 
-  return (
-    <article className={`
-      group bg-brand-surface border border-brand-border rounded-2xl p-6 sm:p-8
-      flex flex-col gap-5
-      hover:border-brand-accent/40 hover:shadow-glow transition-all duration-300
-    `}>
+  const content = (
+    <>
       <div className="flex items-start justify-between gap-4">
         {primaryLink ? (
           <a
@@ -65,6 +68,29 @@ export default function ProjectCard({ project }: { project: Project }) {
           </a>
         ))}
       </div>
+    </>
+  )
+
+  if (variant === 'classic') {
+    return (
+      <DoubleBezel
+        className="h-full"
+        innerClassName="group h-full transition-shadow duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-glow"
+      >
+        <article className="flex h-full flex-col gap-5 border-0 bg-transparent p-6 sm:p-8">
+          {content}
+        </article>
+      </DoubleBezel>
+    )
+  }
+
+  return (
+    <article className={`
+      group bg-brand-surface border border-brand-border rounded-2xl p-6 sm:p-8
+      flex flex-col gap-5
+      hover:border-brand-accent/40 hover:shadow-glow transition-all duration-300
+    `}>
+      {content}
     </article>
   )
 }

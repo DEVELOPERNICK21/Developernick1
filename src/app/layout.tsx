@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: 'Developer Nick — React Native Developer',
     description: '5 years. 6 apps. iOS and Android.',
     type: 'website',
-    images: [{ url: '/icon.jpg' }],
+    images: [{ url: '/icon-circle.png' }],
   },
 }
 

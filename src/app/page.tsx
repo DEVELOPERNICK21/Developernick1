@@ -8,7 +8,7 @@ import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
-    <main>
+    <main className="font-sans film-grain">
       <ClassicNavbar />
       <ClassicHeroSection />
       <WorkSection />

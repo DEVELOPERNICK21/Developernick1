@@ -199,9 +199,9 @@ body {
   transform: translateY(32px);
   filter: blur(6px);
   transition:
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.9s cubic-bezier(0.32, 0.72, 0, 1),
+    transform 0.9s cubic-bezier(0.32, 0.72, 0, 1),
+    filter 0.9s cubic-bezier(0.32, 0.72, 0, 1);
 }
 .section-reveal-visible {
   opacity: 1;
@@ -233,4 +233,18 @@ body {
     filter: none !important;
     transition: none !important;
   }
+}
+
+.film-grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.ease-glass {
+  transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
 }

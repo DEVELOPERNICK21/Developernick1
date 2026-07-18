@@ -28,10 +28,15 @@ export const metadata: Metadata = {
   description: 'React Native developer with 5 years experience. 6 apps shipped on iOS and Android. Based in Pune, India.',
   keywords: ['React Native', 'developer', 'iOS', 'Android', 'Pune', 'mobile apps', 'Developer Nick'],
   authors: [{ name: 'Nick Kubde' }],
+  icons: {
+    icon: [{ url: '/favicon.png', type: 'image/png', sizes: '32x32' }],
+    apple: [{ url: '/apple-touch-icon.png', type: 'image/png', sizes: '180x180' }],
+  },
   openGraph: {
     title: 'Developer Nick — React Native Developer',
     description: '5 years. 6 apps. iOS and Android.',
     type: 'website',
+    images: [{ url: '/icon.jpg' }],
   },
 }
 

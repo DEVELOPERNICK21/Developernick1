@@ -130,7 +130,7 @@ export default function MarqueeSection() {
   return (
     <section
       ref={sectionRef}
-      className="marquee-section overflow-hidden bg-brand-bg pb-16 pt-24 sm:pb-20 sm:pt-32 md:pb-24 md:pt-40"
+      className="marquee-section overflow-hidden border-t border-white/10 bg-classic-bg pb-16 pt-24 sm:pb-20 sm:pt-32 md:pb-24 md:pt-40"
     >
       <p className="relative z-10 mb-4 text-center font-mono text-xs uppercase tracking-[0.3em] text-brand-accent sm:mb-6">
         Apps shipped

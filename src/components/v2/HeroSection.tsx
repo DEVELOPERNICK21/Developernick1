@@ -35,7 +35,7 @@ export default function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-[100dvh] min-h-[640px] flex-col overflow-x-clip overflow-y-visible bg-brand-bg"
+      className="relative flex min-h-[100dvh] min-h-[640px] flex-col overflow-x-clip overflow-y-visible bg-classic-bg"
     >
       <div className="hero-avatar-stage absolute inset-0 z-0" aria-hidden />
 
@@ -44,24 +44,26 @@ export default function HeroSection() {
       ))}
 
       <FadeIn delay={0} y={-20}>
-        <nav className="relative z-40 flex items-center justify-between px-5 pt-5 sm:px-6 sm:pt-6 md:px-10 md:pt-8">
-          {NAV_LINKS.map(link => {
-            const isActive = activeSection === link.href.replace('#', '')
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                className={`text-[11px] font-medium uppercase tracking-wider transition-all duration-300 sm:text-sm md:text-lg lg:text-[1.4rem] ${
-                  isActive
-                    ? 'text-brand-accent opacity-100'
-                    : 'text-brand-light opacity-60 hover:opacity-100'
-                }`}
-              >
-                {link.label}
-              </a>
-            )
-          })}
-        </nav>
+        <div className="relative z-40 flex justify-center px-4 pt-5 sm:pt-6 md:pt-8">
+          <nav className="flex w-full max-w-3xl items-center justify-between gap-2 rounded-full border border-white/10 bg-brand-bg/70 px-4 py-3 backdrop-blur-xl sm:gap-4 sm:px-6">
+            {NAV_LINKS.map(link => {
+              const isActive = activeSection === link.href.replace('#', '')
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className={`text-[10px] font-medium uppercase tracking-wider transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] sm:text-sm md:text-base lg:text-lg ${
+                    isActive
+                      ? 'text-brand-accent opacity-100'
+                      : 'text-brand-light opacity-60 hover:opacity-100'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              )
+            })}
+          </nav>
+        </div>
       </FadeIn>
 
       <motion.div

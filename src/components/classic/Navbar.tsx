@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import IslandButton from '@/components/classic/IslandButton'
 import ClassicLogo from './Logo'
-import { Menu, X } from 'lucide-react'
 
 const navLinks = [
   { label: 'Work', href: '#work' },
@@ -15,9 +15,41 @@ export default function ClassicNavbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-brand-border bg-brand-bg/90 backdrop-blur-md">
-      <div className="flex items-center justify-between px-6 sm:px-10 py-4">
-        <Link href="/" className="flex items-center gap-3">
+    <nav className="pointer-events-none fixed left-0 right-0 top-0 z-[100] flex justify-center px-4 pt-5">
+      <div
+        className={`pointer-events-auto fixed inset-0 bg-black/80 backdrop-blur-3xl transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] md:hidden ${
+          open ? 'visible opacity-100' : 'invisible opacity-0'
+        }`}
+        aria-hidden={!open}
+      >
+        <div className="flex min-h-[100dvh] flex-col items-center justify-center gap-7 px-6 pt-20">
+          {navLinks.map((link, index) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              tabIndex={open ? 0 : -1}
+              className={`text-4xl font-semibold tracking-tight text-white transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                open ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+              }`}
+              style={{ transitionDelay: `${100 + index * 50}ms` }}
+            >
+              {link.label}
+            </a>
+          ))}
+          <IslandButton
+            href="mailto:developernick1@gmail.com"
+            className={`mt-5 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+              open ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+            }`}
+          >
+            Hire Me
+          </IslandButton>
+        </div>
+      </div>
+
+      <div className="pointer-events-auto relative z-10 flex w-full max-w-5xl items-center justify-between rounded-full border border-white/10 bg-brand-bg/70 px-4 py-3 backdrop-blur-xl sm:px-6">
+        <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <ClassicLogo size={36} />
           <div className="flex flex-col">
             <span className="text-white font-bold text-lg tracking-tight leading-none">Nick Kubde</span>
@@ -28,50 +60,48 @@ export default function ClassicNavbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map(l => (
-            <a key={l.label} href={l.href} className="text-sm text-brand-muted hover:text-white transition-colors">
-              {l.label}
+          {navLinks.map(link => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="text-sm text-brand-muted transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-white"
+            >
+              {link.label}
             </a>
           ))}
         </div>
 
         <div className="flex items-center gap-3">
-          <a
+          <IslandButton
             href="mailto:developernick1@gmail.com"
-            className="hidden md:block bg-brand-accent hover:bg-brand-accent2 text-black text-sm font-semibold px-5 py-2 rounded-full transition-all hover:scale-[1.02] active:scale-95 hover:shadow-glow"
+            className="hidden py-2 pl-5 pr-2 md:inline-flex"
           >
             Hire Me
-          </a>
+          </IslandButton>
           <button
             onClick={() => setOpen(o => !o)}
-            className="md:hidden text-brand-muted hover:text-white transition-colors"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full text-brand-muted transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-white md:hidden"
             aria-label="Toggle menu"
+            aria-expanded={open}
           >
-            {open ? <X size={20} /> : <Menu size={20} />}
+            <span
+              className={`absolute h-px w-5 bg-current transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                open ? 'rotate-45' : '-translate-y-1.5'
+              }`}
+            />
+            <span
+              className={`absolute h-px w-5 bg-current transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                open ? 'scale-x-0 opacity-0' : 'scale-x-100 opacity-100'
+              }`}
+            />
+            <span
+              className={`absolute h-px w-5 bg-current transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                open ? '-rotate-45' : 'translate-y-1.5'
+              }`}
+            />
           </button>
         </div>
       </div>
-
-      {open && (
-        <div className="md:hidden border-t border-brand-border bg-brand-bg px-6 py-4 flex flex-col gap-4">
-          {navLinks.map(l => (
-            <a
-              key={l.label}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="text-sm text-brand-muted hover:text-white transition-colors py-1"
-            >
-              {l.label}
-            </a>
-          ))}
-          <a
-            href="mailto:developernick1@gmail.com"
-            className="bg-brand-accent text-black text-sm font-semibold px-5 py-2.5 rounded-full text-center mt-2"
-          >
-            Hire Me
-          </a>
-        </div>
-      )}
     </nav>
   )
 }

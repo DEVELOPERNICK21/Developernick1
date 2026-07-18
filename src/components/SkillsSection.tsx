@@ -19,7 +19,7 @@ export default function SkillsSection() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {skillGroups.map((g, i) => (
           <AnimateIn key={g.category} delay={i * 60}>
-            <DoubleBezel innerClassName="p-6 h-full">
+            <DoubleBezel className="h-full" innerClassName="p-6 h-full">
               <span className="font-mono text-[10px] text-brand-accent tracking-[0.2em] uppercase block mb-4">
                 {g.category}
               </span>

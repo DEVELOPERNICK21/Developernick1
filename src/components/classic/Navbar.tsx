@@ -40,11 +40,29 @@ export default function ClassicNavbar() {
   }, [open])
 
   useEffect(() => {
+    if (!open) return
+
+    const mq = window.matchMedia('(min-width: 768px)')
+    const handleViewportChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      if (e.matches) setOpen(false)
+    }
+
+    handleViewportChange(mq)
+    mq.addEventListener('change', handleViewportChange)
+    return () => mq.removeEventListener('change', handleViewportChange)
+  }, [open])
+
+  useEffect(() => {
     if (!open || !overlayRef.current) return
 
     const overlay = overlayRef.current
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        return
+      }
+
       if (e.key !== 'Tab') return
 
       const focusable = Array.from(

@@ -3,7 +3,7 @@ import IslandButton from '@/components/classic/IslandButton'
 
 export default function CtaSection() {
   return (
-    <section className="relative overflow-hidden border-t border-brand-border bg-brand-bg px-6 py-32 text-center sm:px-10 md:px-16 md:py-40">
+    <section className="relative overflow-hidden border-t border-white/10 bg-brand-bg px-6 py-32 text-center sm:px-10 md:px-16 md:py-40">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute left-1/2 top-1/2 h-[300px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-accent/5 blur-3xl" />
       </div>

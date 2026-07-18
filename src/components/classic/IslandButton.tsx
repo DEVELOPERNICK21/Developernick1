@@ -30,7 +30,7 @@ export default function IslandButton({
       className={`${base} ${styles} ${className}`}
     >
       <span>{children}</span>
-      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black/10 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-px group-hover:scale-105 dark:bg-white/10">
+      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black/10 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-px group-hover:scale-105">
         <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.5} />
       </span>
     </a>

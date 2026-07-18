@@ -2,6 +2,7 @@
 
 import AppMiniCard from '@/components/AppMiniCard'
 import RevealLayer from '@/components/RevealLayer'
+import IslandButton from '@/components/classic/IslandButton'
 import { heroProjects } from '@/lib/projects'
 import { useSpotlight } from '@/hooks/useSpotlight'
 
@@ -9,10 +10,7 @@ export default function ClassicHeroSection() {
   const { cursorPos, enabled, radius } = useSpotlight(0.1)
 
   return (
-    <section
-      className="relative w-full overflow-hidden bg-black"
-      style={{ height: '100dvh', minHeight: '100dvh' }}
-    >
+    <section className="relative min-h-[100dvh] w-full overflow-hidden bg-black">
       <div className="absolute inset-0 z-10 hero-base-bg hero-zoom" aria-hidden />
 
       <RevealLayer
@@ -24,91 +22,94 @@ export default function ClassicHeroSection() {
 
       <div className="absolute inset-0 z-30 hero-vignette pointer-events-none" aria-hidden />
 
-      <div className="relative z-50 flex h-full flex-col justify-center px-6 sm:px-10 md:px-16 pt-24 pb-16">
-        <div className="max-w-4xl">
-          <span
-            className="hero-anim hero-fade-anim font-mono text-xs text-brand-accent tracking-[0.2em] uppercase mb-6 block"
-            style={{ animationDelay: '0.15s' }}
-          >
-            5 years · React Native · Pune, India
-          </span>
-
-          <h1 className="text-white leading-[0.92] mb-6">
+      <div className="relative z-50 mx-auto flex min-h-[100dvh] w-full max-w-[96rem] items-center px-4 py-28 sm:px-10 md:px-16 lg:py-32">
+        <div className="flex w-full flex-col gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-20">
+          <div className="w-full max-w-xl lg:w-1/2">
             <span
-              className="hero-anim hero-reveal-anim block font-display italic font-normal text-5xl sm:text-7xl md:text-8xl"
-              style={{ letterSpacing: '-0.05em', animationDelay: '0.25s' }}
+              className="hero-anim hero-fade-anim mb-5 block font-mono text-[10px] uppercase tracking-[0.24em] text-brand-muted"
+              style={{ animationDelay: '0.12s' }}
             >
-              Apps that
+              React Native · Pune, India
             </span>
             <span
-              className="hero-anim hero-reveal-anim block font-black text-5xl sm:text-7xl md:text-8xl text-brand-accent -mt-1"
-              style={{ letterSpacing: '-0.08em', animationDelay: '0.42s' }}
+              className="hero-anim hero-reveal-anim mb-8 block font-display text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl"
+              style={{ animationDelay: '0.2s' }}
             >
-              ship.
+              Developer Nick
             </span>
-          </h1>
 
-          <p
-            className="hero-anim hero-fade-anim text-brand-muted text-base sm:text-lg leading-relaxed max-w-lg"
-            style={{ animationDelay: '0.55s' }}
-          >
-            I build React Native apps from zero to store — clean architecture, offline-first, and fast.
-            Five years, six live apps, two platforms.
-          </p>
+            <h1 className="mb-7 leading-[0.88] text-white">
+              <span
+                className="hero-anim hero-reveal-anim block font-display text-6xl font-normal italic sm:text-7xl md:text-8xl"
+                style={{ letterSpacing: '-0.055em', animationDelay: '0.3s' }}
+              >
+                Apps that
+              </span>
+              <span
+                className="hero-anim hero-reveal-anim -mt-1 block text-6xl font-black text-brand-accent sm:text-7xl md:text-8xl"
+                style={{ letterSpacing: '-0.08em', animationDelay: '0.42s' }}
+              >
+                ship.
+              </span>
+            </h1>
 
-          <div
-            className="hero-anim hero-fade-anim flex flex-wrap gap-4 mt-10"
-            style={{ animationDelay: '0.7s' }}
-          >
-            <a
-              href="#work"
-              className="bg-brand-accent hover:bg-brand-accent2 text-black font-semibold px-7 py-3 rounded-full text-sm transition-all hover:scale-[1.03] active:scale-95 hover:shadow-glow-lg"
+            <p
+              className="hero-anim hero-fade-anim max-w-lg text-base leading-relaxed text-brand-muted sm:text-lg"
+              style={{ animationDelay: '0.55s' }}
             >
-              See My Work
-            </a>
-            <a
-              href="#about"
-              className="border border-white/10 hover:border-brand-accent/50 bg-white/5 backdrop-blur-sm text-brand-muted hover:text-white font-medium px-7 py-3 rounded-full text-sm transition-all"
+              I build React Native apps from zero to store — clean architecture,
+              offline-first resilience, and product experiences made to last.
+            </p>
+
+            <div
+              className="hero-anim hero-fade-anim mt-10 flex flex-wrap gap-4"
+              style={{ animationDelay: '0.68s' }}
             >
-              About Me
-            </a>
+              <IslandButton href="#work">See My Work</IslandButton>
+              <IslandButton href="#about" variant="ghost">
+                About Me
+              </IslandButton>
+            </div>
+
+            <div className="mt-12 flex flex-col gap-3 lg:hidden">
+              {heroProjects.map((project, index) => (
+                <div
+                  key={project.title}
+                  className="hero-anim hero-fade-anim"
+                  style={{ animationDelay: `${0.8 + index * 0.1}s` }}
+                >
+                  <AppMiniCard
+                    icon={project.icon}
+                    iconUrl={project.iconUrl}
+                    title={project.heroTitle ?? project.title}
+                    meta={project.heroMeta ?? project.label}
+                    badge={project.heroBadge ?? 'Live'}
+                    href={project.links[0]?.href}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div
-            className="hero-anim hero-fade-anim flex gap-8 sm:gap-12 mt-16 border-t border-white/10 pt-10"
-            style={{ animationDelay: '0.85s' }}
-          >
-            {[
-              { value: '6+', label: 'Live Apps' },
-              { value: '2', label: 'Platforms' },
-              { value: '5', label: 'Years Experience' },
-            ].map(s => (
-              <div key={s.label} className="flex flex-col gap-1">
-                <span className="font-mono text-3xl font-bold text-white">{s.value}</span>
-                <span className="text-xs text-brand-muted tracking-wide uppercase">{s.label}</span>
+          <div className="hidden w-full max-w-sm flex-col gap-4 lg:flex lg:w-[36%]">
+            {heroProjects.map((project, index) => (
+              <div
+                key={project.title}
+                className="hero-anim hero-fade-anim"
+                style={{ animationDelay: `${0.74 + index * 0.12}s` }}
+              >
+                <AppMiniCard
+                  icon={project.icon}
+                  iconUrl={project.iconUrl}
+                  title={project.heroTitle ?? project.title}
+                  meta={project.heroMeta ?? project.label}
+                  badge={project.heroBadge ?? 'Live'}
+                  href={project.links[0]?.href}
+                />
               </div>
             ))}
           </div>
         </div>
-      </div>
-
-      <div className="absolute right-10 xl:right-16 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-3 w-[240px] lg:flex">
-        {heroProjects.map((p, i) => (
-          <div
-            key={p.title}
-            className="hero-anim hero-fade-anim"
-            style={{ animationDelay: `${0.9 + i * 0.12}s` }}
-          >
-            <AppMiniCard
-              icon={p.icon}
-              iconUrl={p.iconUrl}
-              title={p.heroTitle ?? p.title}
-              meta={p.heroMeta ?? p.label}
-              badge={p.heroBadge ?? 'Live'}
-              href={p.links[0]?.href}
-            />
-          </div>
-        ))}
       </div>
     </section>
   )
